@@ -5,6 +5,7 @@ use App\Http\Controllers\MoviesApiController;
 use App\Http\Controllers\ScreeningsApiController;
 use App\Http\Controllers\AuditoriaApiController;
 use App\Http\Controllers\TicketsApiController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,9 +23,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('register','UserController@register');
-Route::post('login','UserController@login');
-Route::get('profile','UserController@getAuthenticatedUser');
+Route::post('register', [UserController::class, 'register']);
+Route::post('login', [UserController::class, 'login']);
+Route::get('profile', [UserController::class, 'getAuthenticatedUser']);
 
 Route::get('/movies', [MoviesApiController::class, 'index']);
 Route::get('/movies/{movie}', [MoviesApiController::class, 'get']);
