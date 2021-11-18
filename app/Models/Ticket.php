@@ -18,4 +18,9 @@ class Ticket extends Model
         return $this->belongsTo(Screening::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }

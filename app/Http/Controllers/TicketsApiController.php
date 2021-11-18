@@ -6,32 +6,33 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Ticket;
 use App\Models\Screening;
+use App\Models\User;
 
 class TicketsApiController extends Controller
 {
 
-    public function index(Screening $screening){
-        return $screening->tickets;
+    public function index(User $user){
+        return $user->tickets;
     }
 
-    public function get(Screening $screening, Ticket $ticket){
-        return Screening::find($screening->id)->tickets()->where('id', $ticket->id)->first();
+    public function get(User $user, Ticket $ticket){
+        return User::find($user->id)->tickets()->where('id', $ticket->id)->first();
     }
 
-    public function store(Screening $screening){
+    public function store(User $user){
         $result = request()->validate([
             'cost' => 'required'
         ]);
 
         $ticket = new Ticket;
         $ticket->cost = request('cost');
-        $screening->tickets()->save($ticket);
+        $user->tickets()->save($ticket);
 
         return $ticket;
     
     }
 
-    public function update(Screening $screening, Ticket $ticket){
+    public function update(User $user, Ticket $ticket){
 
         request()->validate([
             'cost' => 'required'
@@ -47,7 +48,7 @@ class TicketsApiController extends Controller
     
     }
 
-    public function destroy(Screening $screening, Ticket $ticket){
+    public function destroy(User $user, Ticket $ticket){
 
         $ticket->delete();
 

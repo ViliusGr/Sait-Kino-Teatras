@@ -47,12 +47,9 @@ Route::post('/auditoria', [AuditoriaApiController::class, 'store']);
 Route::put('/auditoria/{auditorium}', [AuditoriaApiController::class, 'update']);
 Route::delete('/auditoria/{auditorium}', [AuditoriaApiController::class, 'destroy']);
 
-Route::get('/screenings/{screening}/tickets', [TicketsApiController::class, 'index']);
-Route::get('/screenings/{screening}/tickets/{ticket}', [TicketsApiController::class, 'get']);
-Route::post('/screenings/{screening}/tickets', [TicketsApiController::class, 'store']);
-Route::put('/screenings/{screening}/tickets/{ticket}', [TicketsApiController::class, 'update']);
-Route::delete('/screenings/{screening}/tickets/{ticket}', [TicketsApiController::class, 'destroy']);
+Route::middleware('auth:api')->get('/users/{user}/tickets', [TicketsApiController::class, 'index']);
+Route::middleware('auth:api')->get('/users/{user}/tickets/{ticket}', [TicketsApiController::class, 'get']);
+Route::middleware('auth:api')->post('/users/{user}/tickets', [TicketsApiController::class, 'store']);
+Route::middleware('auth:api')->put('/users/{user}/tickets/{ticket}', [TicketsApiController::class, 'update']);
+Route::middleware('auth:api')->delete('/users/{user}/tickets/{ticket}', [TicketsApiController::class, 'destroy']);
 
-Route::middleware('auth:api')->get('/user', function(Request $request){
-    return $request->user();
-});
