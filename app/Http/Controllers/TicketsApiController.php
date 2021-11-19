@@ -54,6 +54,12 @@ class TicketsApiController extends Controller
         request()->validate([
             'cost' => 'required'
         ]);
+
+        try{
+            $user = auth()->userOrFail();
+        } catch(\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e){
+            return response()->json([ 'error' => $e->getMessage() ]);
+        }
     
         $status = $ticket->update([
             'cost' => request('cost')
@@ -66,6 +72,12 @@ class TicketsApiController extends Controller
     }
 
     public function destroy(User $user, Ticket $ticket){
+
+        try{
+            $user = auth()->userOrFail();
+        } catch(\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e){
+            return response()->json([ 'error' => $e->getMessage() ]);
+        }
 
         $ticket->delete();
 
