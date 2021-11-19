@@ -42,7 +42,7 @@ class TicketsApiController extends Controller
         $ticket->cost = request('cost');
         $screening = Screening::where('id', 1)->first();
 
-        $screening->tickets()->associate($ticket);
+        $ticket->screening()->associate($screening);
         $user->tickets()->save($ticket);
         
 
