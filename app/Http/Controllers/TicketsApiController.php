@@ -41,12 +41,10 @@ class TicketsApiController extends Controller
         $ticket = new Ticket;
         $ticket->cost = request('cost');
         $screening = Screening::where('id', 1)->first();
-        $ticket['user_id'] = $user->id;
-        
 
-        
+        $screening->tickets()->associate($ticket);
         $user->tickets()->save($ticket);
-        $screening->tickets()->save($ticket);
+        
 
         return $ticket;
     
