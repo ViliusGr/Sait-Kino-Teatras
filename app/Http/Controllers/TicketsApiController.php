@@ -12,15 +12,14 @@ class TicketsApiController extends Controller
 {
 
     public function index(User $user){
-        //$tickets = auth()->user()->tickets;
         
         try{
-            $user = auth()->userOrFail();
+            $us = auth()->userOrFail();
         } catch(\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e){
             return response()->json([ 'error' => $e->getMessage() ]);
         }
 
-        return $user->posts;
+        return $us->tickets;
     }
 
     public function get(User $user, Ticket $ticket){
