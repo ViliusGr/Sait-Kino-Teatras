@@ -12,7 +12,15 @@ class TicketsApiController extends Controller
 {
 
     public function index(User $user){
-        return $user->tickets;
+        //$tickets = auth()->user()->tickets;
+        
+        try{
+            $user = auth()->userOrFail();
+        } catch(\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e){
+            return response()->json([ 'error' => $e->getMessage() ]);
+        }
+
+        return $user->posts;
     }
 
     public function get(User $user, Ticket $ticket){
@@ -23,6 +31,12 @@ class TicketsApiController extends Controller
         $result = request()->validate([
             'cost' => 'required'
         ]);
+
+        try{
+            $user = auth()->userOrFail();
+        } catch(\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e){
+            return response()->json([ 'error' => $e->getMessage() ]);
+        }
 
         $ticket = new Ticket;
         $ticket->cost = request('cost');
