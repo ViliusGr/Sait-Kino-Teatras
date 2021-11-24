@@ -23,6 +23,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::middleware('auth.role:admin')->get('/admin', function (Request $request) {
+    return $request->user();
+});
+
 Route::post('register', [UserController::class, 'register']);
 Route::post('login', [UserController::class, 'login']);
 Route::get('profile', [UserController::class, 'getAuthenticatedUser']);
