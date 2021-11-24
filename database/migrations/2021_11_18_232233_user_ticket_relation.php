@@ -26,8 +26,11 @@ class UserTicketRelation extends Migration
      */
     public function down()
     {
-        $table->dropForeign('tickets_user_id_foreign');
-        $table->dropIndex('tickets_user_id_index');
-        $table->dropColumn('user_id');
+        Schema::table('tickets', function (Blueprint $table) {
+            $table->dropForeign('tickets_user_id_foreign');
+            $table->dropIndex('tickets_user_id_index');
+            $table->dropColumn('user_id');
+        });
+        
     }
 }
