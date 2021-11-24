@@ -45,11 +45,15 @@ Route::put('/movies/{movie}/screenings/{screening}', [ScreeningsApiController::c
 Route::delete('/movies/{movie}/screenings/{screening}', [ScreeningsApiController::class, 'destroy']);
 
 
-Route::get('/auditoria', [AuditoriaApiController::class, 'index']);
-Route::get('/auditoria/{auditorium}', [AuditoriaApiController::class, 'get']);
-Route::post('/auditoria', [AuditoriaApiController::class, 'store']);
-Route::put('/auditoria/{auditorium}', [AuditoriaApiController::class, 'update']);
-Route::delete('/auditoria/{auditorium}', [AuditoriaApiController::class, 'destroy']);
+Route::middleware('auth.role:admin')->group(function () {
+    Route::get('/auditoria', [AuditoriaApiController::class, 'index']);
+    Route::get('/auditoria/{auditorium}', [AuditoriaApiController::class, 'get']);
+    Route::post('/auditoria', [AuditoriaApiController::class, 'store']);
+    Route::put('/auditoria/{auditorium}', [AuditoriaApiController::class, 'update']);
+    Route::delete('/auditoria/{auditorium}', [AuditoriaApiController::class, 'destroy']);
+});
+
+
 
 Route::middleware('auth:api')->get('/users/{user}/tickets', [TicketsApiController::class, 'index']);
 Route::middleware('auth:api')->get('/users/{user}/tickets/{ticket}', [TicketsApiController::class, 'get']);
