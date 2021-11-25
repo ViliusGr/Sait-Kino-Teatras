@@ -18,11 +18,24 @@ class TicketsApiController extends Controller
         } catch(\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e){
             return response()->json([ 'error' => $e->getMessage() ]);
         }
+        if($us != $user){
+            return response()->json([ 'error' => 'Wrong user.' ]);
+        }
 
         return $us->tickets;
     }
 
     public function get(User $user, Ticket $ticket){
+        try{
+            $us = auth()->userOrFail();
+        } catch(\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e){
+            return response()->json([ 'error' => $e->getMessage() ]);
+        }
+
+        if($us != $user){
+            return response()->json([ 'error' => 'Wrong user.' ]);
+        }
+
         return User::find($user->id)->tickets()->where('id', $ticket->id)->first();
     }
 
@@ -32,10 +45,11 @@ class TicketsApiController extends Controller
         ]);
 
         try{
-            $user = auth()->userOrFail();
+            $us = auth()->userOrFail();
         } catch(\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e){
             return response()->json([ 'error' => $e->getMessage() ]);
         }
+
 
         $ticket = new Ticket;
         $ticket->cost = request('cost');
