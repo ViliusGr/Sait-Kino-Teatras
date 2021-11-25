@@ -50,6 +50,10 @@ class TicketsApiController extends Controller
             return response()->json([ 'error' => $e->getMessage() ]);
         }
 
+        if($us != $user){
+            return response()->json([ 'error' => 'Wrong user.' ]);
+        }
+
 
         $ticket = new Ticket;
         $ticket->cost = request('cost');
@@ -70,9 +74,13 @@ class TicketsApiController extends Controller
         ]);
 
         try{
-            $user = auth()->userOrFail();
+            $us = auth()->userOrFail();
         } catch(\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e){
             return response()->json([ 'error' => $e->getMessage() ]);
+        }
+
+        if($us != $user){
+            return response()->json([ 'error' => 'Wrong user.' ]);
         }
     
         $status = $ticket->update([
@@ -88,9 +96,13 @@ class TicketsApiController extends Controller
     public function destroy(User $user, Ticket $ticket){
 
         try{
-            $user = auth()->userOrFail();
+            $us = auth()->userOrFail();
         } catch(\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e){
             return response()->json([ 'error' => $e->getMessage() ]);
+        }
+
+        if($us != $user){
+            return response()->json([ 'error' => 'Wrong user.' ]);
         }
 
         $ticket->delete();
