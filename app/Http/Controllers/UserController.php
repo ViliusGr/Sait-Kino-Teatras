@@ -32,7 +32,7 @@ class UserController extends Controller
                 'name' => $request->json()->get('name'),
                 'email' => $request->json()->get('email'),
                 'password' => Hash::make($request->json()->get('password')),
-                'role' => 'user'
+                'role' => 'user',
             ]);
 
             $token = JWTAuth::fromUser($user);
