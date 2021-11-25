@@ -19,7 +19,6 @@ Route::middleware('auth.role:admin')->get('/admin', function (Request $request) 
 
 Route::post('register', [UserController::class, 'register']);
 Route::post('login', [UserController::class, 'login']);
-Route::get('profile', [UserController::class, 'getAuthenticatedUser']);
 
 Route::get('/movies', [MoviesApiController::class, 'index']);
 Route::get('/movies/{movie}', [MoviesApiController::class, 'get']);
