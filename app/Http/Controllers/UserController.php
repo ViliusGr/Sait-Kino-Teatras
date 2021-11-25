@@ -56,6 +56,17 @@ class UserController extends Controller
 
     }
 
+    public function refresh(){
+        try {
+            $newToken = auth()->refresh();
+        }catch (JWTException $e){
+            return response()->json(['error'=> $e->getMessage()], 401);
+        }
+
+        return response()->json(['token' => $newToken]);
+
+    }
+
     public function getAuthenticatedUser(){
         try{
             if(!$user = JWTAuth::parseToken()->authenticate()){
