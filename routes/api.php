@@ -26,12 +26,13 @@ Route::get('/movies/{movie}', [MoviesApiController::class, 'get']);
 
 Route::get('/movies/{movie}/screenings', [ScreeningsApiController::class, 'index']);
 Route::get('/movies/{movie}/screenings/{screening}', [ScreeningsApiController::class, 'get']);
-Route::delete('/movies/{movie}', [MoviesApiController::class, 'destroy']);
+
+//Route::get('/tickets/{ticket}/screenings', [TicketsApiController::class, 'get']);
 
 Route::middleware('auth.role:admin')->group(function () {
     Route::post('/movies', [MoviesApiController::class, 'store']);
     Route::put('/movies/{movie}', [MoviesApiController::class, 'update']);
-    
+    Route::delete('/movies/{movie}', [MoviesApiController::class, 'destroy']);
     
     Route::post('/movies/{movie}/screenings', [ScreeningsApiController::class, 'store']);
     Route::put('/movies/{movie}/screenings/{screening}', [ScreeningsApiController::class, 'update']);
