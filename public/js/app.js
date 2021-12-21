@@ -3037,7 +3037,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 
@@ -8081,7 +8080,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.my-sidebar {\n    flex: 0 0 300px;\n} \n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.my-sidebar {\n    flex: 0 0 300px;\n}\n.table {\n    overflow: auto;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -52085,21 +52084,75 @@ var render = function () {
         _vm._v(" "),
         _vm.screenings.length != 0
           ? _c("div", { staticClass: "col-md pb-3 my-sidebar" }, [
-              _c(
-                "table",
-                {
-                  staticClass: "table table-responsive",
-                  staticStyle: { width: "450px" },
-                },
-                [
-                  _c("thead", [
-                    _c("tr", [
-                      _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
+              _c("table", { staticClass: "table table-responsive" }, [
+                _c("thead", [
+                  _c("tr", [
+                    _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
+                    _vm._v(" "),
+                    _c("th", { attrs: { scope: "col" } }, [_vm._v("Time")]),
+                    _vm._v(" "),
+                    _c(
+                      "th",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.user,
+                            expression: "user",
+                          },
+                        ],
+                        attrs: { scope: "col" },
+                      },
+                      [_vm._v("-")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "th",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.user && _vm.user.role === "admin",
+                            expression: "user && user.role === 'admin'",
+                          },
+                        ],
+                        attrs: { scope: "col" },
+                      },
+                      [_vm._v("-")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "th",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.user && _vm.user.role === "admin",
+                            expression: "user && user.role === 'admin'",
+                          },
+                        ],
+                        attrs: { scope: "col" },
+                      },
+                      [_vm._v("-")]
+                    ),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.screenings, function (screening, skey) {
+                    return _c("tr", { key: screening.id }, [
+                      _c("th", { attrs: { scope: "row" } }, [
+                        _vm._v(_vm._s(skey + 1)),
+                      ]),
                       _vm._v(" "),
-                      _c("th", { attrs: { scope: "col" } }, [_vm._v("Time")]),
+                      _c("td", [_vm._v(_vm._s(screening.time))]),
                       _vm._v(" "),
                       _c(
-                        "th",
+                        "td",
                         {
                           directives: [
                             {
@@ -52109,13 +52162,28 @@ var render = function () {
                               expression: "user",
                             },
                           ],
-                          attrs: { scope: "col" },
                         },
-                        [_vm._v("-")]
+                        [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-info",
+                              on: {
+                                click: function ($event) {
+                                  return _vm.reserveScreening(
+                                    screening.id,
+                                    _vm.user.id
+                                  )
+                                },
+                              },
+                            },
+                            [_vm._v("Reserve")]
+                          ),
+                        ]
                       ),
                       _vm._v(" "),
                       _c(
-                        "th",
+                        "td",
                         {
                           directives: [
                             {
@@ -52125,13 +52193,29 @@ var render = function () {
                               expression: "user && user.role === 'admin'",
                             },
                           ],
-                          attrs: { scope: "col" },
                         },
-                        [_vm._v("-")]
+                        [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-warning mb-2",
+                              attrs: {
+                                "data-toggle": "modal",
+                                "data-target": "#exampleModal",
+                              },
+                              on: {
+                                click: function ($event) {
+                                  return _vm.editScreening(screening)
+                                },
+                              },
+                            },
+                            [_vm._v("Edit")]
+                          ),
+                        ]
                       ),
                       _vm._v(" "),
                       _c(
-                        "th",
+                        "td",
                         {
                           directives: [
                             {
@@ -52141,119 +52225,27 @@ var render = function () {
                               expression: "user && user.role === 'admin'",
                             },
                           ],
-                          attrs: { scope: "col" },
                         },
-                        [_vm._v("-")]
+                        [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger",
+                              on: {
+                                click: function ($event) {
+                                  return _vm.deleteScreening(screening.id)
+                                },
+                              },
+                            },
+                            [_vm._v("Delete")]
+                          ),
+                        ]
                       ),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "tbody",
-                    _vm._l(_vm.screenings, function (screening, skey) {
-                      return _c("tr", { key: screening.id }, [
-                        _c("th", { attrs: { scope: "row" } }, [
-                          _vm._v(_vm._s(skey + 1)),
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(screening.time))]),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value: _vm.user,
-                                expression: "user",
-                              },
-                            ],
-                          },
-                          [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-info",
-                                on: {
-                                  click: function ($event) {
-                                    return _vm.reserveScreening(
-                                      screening.id,
-                                      _vm.user.id
-                                    )
-                                  },
-                                },
-                              },
-                              [_vm._v("Reserve")]
-                            ),
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value: _vm.user && _vm.user.role === "admin",
-                                expression: "user && user.role === 'admin'",
-                              },
-                            ],
-                          },
-                          [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-warning mb-2",
-                                attrs: {
-                                  "data-toggle": "modal",
-                                  "data-target": "#exampleModal",
-                                },
-                                on: {
-                                  click: function ($event) {
-                                    return _vm.editScreening(screening)
-                                  },
-                                },
-                              },
-                              [_vm._v("Edit")]
-                            ),
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value: _vm.user && _vm.user.role === "admin",
-                                expression: "user && user.role === 'admin'",
-                              },
-                            ],
-                          },
-                          [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-danger",
-                                on: {
-                                  click: function ($event) {
-                                    return _vm.deleteScreening(screening.id)
-                                  },
-                                },
-                              },
-                              [_vm._v("Delete")]
-                            ),
-                          ]
-                        ),
-                      ])
-                    }),
-                    0
-                  ),
-                ]
-              ),
+                    ])
+                  }),
+                  0
+                ),
+              ]),
             ])
           : _vm._e(),
       ]),

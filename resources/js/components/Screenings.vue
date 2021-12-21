@@ -31,7 +31,6 @@
             </div>
         </div>
         
-        
         <div class="container">
             <div class="row">
                 <div class="col-md pb-3">
@@ -43,7 +42,7 @@
                         <p>{{ movie.description }}</p>
                 </div>
                 <div class="col-md pb-3 my-sidebar" v-if="screenings.length != 0">
-                    <table class="table table-responsive" style="width: 450px">
+                    <table class="table table-responsive">
                         <thead>
                             <tr>
                             <th scope="col">#</th>
@@ -233,5 +232,9 @@
         -ms-flex: 0 0 300px;
         flex: 0 0 300px;
     } 
+
+    .table {
+        overflow: auto;
+    }
 
 </style>
