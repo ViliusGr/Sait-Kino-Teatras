@@ -20,7 +20,8 @@
                 </div>
                 <div class="modal-body">
                     <form @submit.prevent="addScreening" class="mb-3">
-                        <datetime type="datetime" class="border mb-2" v-model="screening.time" zone="UTC+0" format="yyyy-MM-dd HH:mm:ss" :minute-step="5"></datetime>
+                        <label for="datefield">Date</label>
+                        <datetime type="datetime" class="datefield mb-2" v-model="screening.time" zone="UTC+0" format="yyyy-MM-dd HH:mm:ss" :minute-step="5"></datetime>
                         <button type="submit" class="btn btn-warning btn-block">Save</button>
                     </form>
                 </div>

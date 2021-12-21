@@ -3037,6 +3037,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -52016,8 +52017,12 @@ var render = function () {
                     },
                   },
                   [
+                    _c("label", { attrs: { for: "datefield" } }, [
+                      _vm._v("Date"),
+                    ]),
+                    _vm._v(" "),
                     _c("datetime", {
-                      staticClass: "border mb-2",
+                      staticClass: "datefield mb-2",
                       attrs: {
                         type: "datetime",
                         zone: "UTC+0",
